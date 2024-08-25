@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #status, #transcript {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Speech to Text</h1>
+    <button id="start-button">Start</button>
+    <button id="stop-button" disabled>Stop</button>
+    <button id="reset-button" disabled>Reset</button>
+    <p id="status"></p>
+    <p id="transcript"></p>
+
+    <script>
+        var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.maxResults = 10;
+        recognition.interimResults = true; // Add this line to get continuous results
+        recognition.continuous = true; // Add this line to continue listening
+
+        var transcriptText = ''; // Initialize an empty string to store the transcript
+        var isTranscriptAdded = false; // Flag to check if the transcript has already been added
+
+        recognition.onstart = function() {
+            console.log('Speech recognition started...');
+            document.getElementById('status').innerHTML = 'Listening...';
+            document.getElementById('start-button').disabled = true;
+            document.getElementById('stop-button').disabled = false;
+            document.getElementById('reset-button').disabled = true;
+        };
+
+        recognition.onresult = function(event) {
+            var transcript = '';
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    transcript += event.results[i][0].transcript;
+                }
+            }
+            if (!isTranscriptAdded) {
+                transcriptText += transcript; // Add the new transcript to the existing text
+                document.getElementById('transcript').innerHTML = transcriptText;
+                console.log('Transcript: ' + transcriptText);
+                isTranscriptAdded = true; // Set the flag to true
+            }
+        };
+
+        recognition.onerror = function(event) {
+            console.log('Error: ' + event.error);
+            document.getElementById('status').innerHTML = 'Error: ' + event.error;
+        };
+
+        recognition.onend = function() {
+            console.log('Speech recognition ended...');
+            document.getElementById('status').innerHTML = 'Finished listening.';
+            document.getElementById('start-button').disabled = false;
+            document.getElementById('stop-button').disabled = true;
+            document.getElementById('reset-button').disabled = false;
+            isTranscriptAdded = false; // Reset the flag
+        };
+
+        function startSpeechRecognition() {
+            recognition.start();
+        }
+
+        function stopSpeechRecognition() {
+            recognition.stop();
+        }
+
+        function resetSpeechRecognition() {
+            transcriptText = ''; // Reset the transcript text
+            document.getElementById('transcript').innerHTML = '';
+            document.getElementById('status').innerHTML = '';
+            document.getElementById('start-button').disabled = false;
+            document.getElementById('stop-button').disabled = true;
+            document.getElementById('reset-button').disabled = true;
+            recognition.start(); // Start a fresh conversation
+        }
+
+        document.getElementById('start-button').addEventListener('click', startSpeechRecognition);
+        document.getElementById('stop-button').addEventListener('click', stopSpeechRecognition);
+        document.getElementById('reset-button').addEventListener('click', resetSpeechRecognition);
+    </script>
+</body>
+</html>

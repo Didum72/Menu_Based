@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Volume Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group input {
+            width: calc(100% - 24px);
+            margin-right: 10px;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Audio Volume Control</h1>
+        <p>Adjust the volume of your default audio device.</p>
+        <div class="form-group">
+            <label for="current_volume">Current Volume:</label>
+            <input type="text" id="current_volume" readonly>
+        </div>
+        <div class="form-group">
+            <label for="volume">Set New Volume (0-100):</label>
+            <input type="number" id="volume" min="0" max="100">
+        </div>
+        <button onclick="setVolume()">Set Volume</button>
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        function updateVolume() {
+            fetch('http://127.0.0.1:5000/get_volume')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current_volume').value = data.volume;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function setVolume() {
+            const volume = document.getElementById('volume').value;
+            fetch('http://127.0.0.1:5000/set_volume', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ level: parseInt(volume) }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.message;
+                if (data.status === 'success') {
+                    updateVolume();
+                }
+            })
+            .catch(error => {
+                document.getElementById('response').innerText = 'An error occurred: ' + error.message;
+            });
+        }
+
+        // Initialize the page with the current volume
+        updateVolume();
+    </script>
+</body>
+</html>

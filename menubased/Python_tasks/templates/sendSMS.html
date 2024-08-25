@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send SMS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .sms-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .sms-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .sms-form input, .sms-form textarea, .sms-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .sms-form button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .sms-form button:hover {
+            background-color: #218838;
+        }
+        .sms-form .status {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sms-form">
+    <h2>Send an SMS</h2>
+    <input type="text" id="sender_phone" placeholder="Sender's Phone Number (Twilio)" required>
+    <input type="text" id="receiver_phone" placeholder="Receiver's Phone Number" required>
+    <textarea id="message" rows="5" placeholder="Message" required></textarea>
+    <button onclick="sendSMS()">Send SMS</button>
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+    function sendSMS() {
+        const senderPhone = document.getElementById('sender_phone').value;
+        const receiverPhone = document.getElementById('receiver_phone').value;
+        const message = document.getElementById('message').value;
+
+        fetch('/send_sms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender_phone: senderPhone,
+                receiver_phone: receiverPhone,
+                message: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('status').textContent = data;
+        })
+        .catch(error => {
+            document.getElementById('status').textContent = 'Error: ' + error;
+        });
+    }
+</script>
+
+</body>
+</html>

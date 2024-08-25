@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        form {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+        
+        #result {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+</style>
+</head>
+<body>
+    <h1>ML Model</h1>
+    <form>
+        <label for="sepal_length">Sepal Length:</label>
+        <input type="number" id="sepal_length" name="sepal_length"><br><br>
+        <label for="sepal_width">Sepal Width:</label>
+        <input type="number" id="sepal_width" name="sepal_width"><br><br>
+        <label for="petal_length">Petal Length:</label>
+        <input type="number" id="petal_length" name="petal_length"><br><br>
+        <label for="petal_width">Petal Width:</label>
+        <input type="number" id="petal_width" name="petal_width"><br><br>
+        <input type="submit" value="Predict">
+    </form>
+    <div id="result"></div>
+
+    <script>
+        const form = document.querySelector('form');
+        const resultDiv = document.querySelector('#result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sepalLength = document.querySelector('#sepal_length').value;
+            const sepalWidth = document.querySelector('#sepal_width').value;
+            const petalLength = document.querySelector('#petal_length').value;
+            const petalWidth = document.querySelector('#petal_width').value;
+
+            const data = { sepalLength, sepalWidth, petalLength, petalWidth };
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            resultDiv.innerText = `The predicted class is ${result.prediction}`;
+        });
+    </script>
+</body>
+</html>

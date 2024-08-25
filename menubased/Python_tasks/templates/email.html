@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .email-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .email-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .email-form input, .email-form textarea, .email-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .email-form button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .email-form button:hover {
+            background-color: #218838;
+        }
+        .email-form .status {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="email-form">
+    <h2>Send an Email</h2>
+    <input type="email" id="sender_email" placeholder="Sender's Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="email" id="receiver_email" placeholder="Receiver's Email" required>
+    <input type="text" id="subject" placeholder="Subject" required>
+    <textarea id="message" rows="5" placeholder="Message" required></textarea>
+    <button onclick="sendEmail()">Send Email</button>
+    <div class="status" id="status"></div>
+</div>
+
+<script>
+    function sendEmail() {
+        const senderEmail = document.getElementById('sender_email').value;
+        const password = document.getElementById('password').value;
+        const receiverEmail = document.getElementById('receiver_email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+
+        fetch('/send_email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender_email: senderEmail,
+                password: password,
+                receiver_email: receiverEmail,
+                subject: subject,
+                message: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('status').textContent = data;
+        })
+        .catch(error => {
+            document.getElementById('status').textContent = 'Error: ' + error;
+        });
+    }
+</script>
+
+</body>
+</html>

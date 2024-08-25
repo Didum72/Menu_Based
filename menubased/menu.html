@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Janvi Sharma's Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #337ab7;
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #337ab7;
+      padding: 10px 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .links a:hover {
+      background-color: #337ab7;
+      color: #f9f9f9;
+    }
+
+    .content {
+      display: none;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #337ab7;
+      border-radius: 5px;
+    }
+
+    .projects {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .project-button {
+      padding: 10px 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #337ab7;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .project-button:hover {
+      background-color: #337ab7;
+      color: #f9f9f9;
+    }
+
+    .task-card {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #337ab7;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .task-card:hover {
+      background-color: #337ab7;
+      color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="C:/Users/Anmol/OneDrive/Desktop/profile.png" alt="Janvi Sharma" class="profile-image">
+    <div class="profile-name">Janvi Sharma</div>
+    <div class="links">
+      <a href="#" onclick="showAboutMe()">About Me</a>
+      <a href="#" onclick="showSkills()">Skills</a>
+      <a href="#" onclick="showProjects()">Projects</a>
+    </div>
+    <div id="about-me" class="content">
+      <h1>About Me</h1>
+      <p>Enthusiastic and motivated Java programming student eager to gain hands-on experience as a Java Intern. Possessing a solid foundation in core Java concepts and object-oriented programming, along with a strong desire to learn and contribute to real-world projects. Seeking an opportunity to apply and expand my skills in a professional environment.</p>
+    </div>
+    <div id="skills" class="content">
+      <h1>Skills</h1>
+      <ul>
+        <li>Programming languages: C, C++, Java</li>
+        <li>Key Points: Strong foundation in java fundamentals, Understanding of java development tools like, Eclipse, intelliJ IDEA</li>
+        <li>Tools: Manev, Gradle</li>
+        <li>Database: MySQL, PL-SQL, SQLite</li>
+        <li>Cloud Computing: AWS and Microsoft AZURE</li>
+        <li>Soft Skills: Communication, Time management, Multitasker, Leadership and Decision-making, Good observation and planning skills, Creative and Critical Thinking</li>
+      </ul>
+    </div>
+    <div id="projects" class="content">
+      <h1>Projects</h1>
+      <div class="projects">
+        <button class="project-button" onclick="showPythonProjects()">Python</button>
+        <button class="project-button" onclick="showFullStackProjects()">Full Stack</button>
+        <button class="project-button" onclick="showMachineLearningProjects()">Machine Learning</button>
+    </div>
+    <div id="python-projects" class="content" style="display: none;">
+      <h1>Python Projects</h1>
+      <div class="task-cards">
+        <div class="task-card">
+          <h2>Send Email</h2>
+          <p>Task description</p>
+          <a href="#index.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Send SMS</h2>
+          <p>Task description</p>
+          <a href="#sendSMS.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Geocoordinate</h2>
+          <p>Task description</p>
+          <a href="#geoCordinate.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Top 5 Searches</h2>
+          <p>Task description</p>
+          <a href="#searchTop5.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Volume Controller</h2>
+          <p>Task description</p>
+          <a href="#volumeConroller.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Text to Audio</h2>
+          <p>Task description</p>
+          <a href="#textToAudio.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Send SMS using Mobile</h2>
+          <p>Task description</p>
+          <a href="#msgUsingMobile.html" target="_blank">View Task</a>
+        </div>
+        <div class="task-card">
+          <h2>Send Bulk Email</h2>
+          <p>Task description</p>
+          <a href="#bulkEmail.html" target="_blank">View Task</a>
+        </div>
+      </div>
+    </div>
+    <div id="full-stack-projects" class="content" style="display: none;">
+      <!-- Full Stack projects content -->
+    </div>
+    <div id="machine-learning-projects" class="content" style="display: none;">
+      <!-- Machine Learning projects content -->
+    </div>
+  </div>
+  
+  <script>
+    function showAboutMe() {
+      document.getElementById("about-me").style.display = "block";
+      document.getElementById("skills").style.display = "none";
+      document.getElementById("projects").style.display = "none";
+      document.getElementById("python-projects").style.display = "none";
+      document.getElementById("full-stack-projects").style.display = "none";
+      document.getElementById("machine-learning-projects").style.display = "none";
+    }
+  
+    function showSkills() {
+      document.getElementById("about-me").style.display = "none";
+      document.getElementById("skills").style.display = "block";
+      document.getElementById("projects").style.display = "none";
+      document.getElementById("python-projects").style.display = "none";
+      document.getElementById("full-stack-projects").style.display = "none";
+      document.getElementById("machine-learning-projects").style.display = "none";
+    }
+  
+    function showProjects() {
+      document.getElementById("about-me").style.display = "none";
+      document.getElementById("skills").style.display = "none";
+      document.getElementById("projects").style.display = "block";
+      document.getElementById("python-projects").style.display = "none";
+      document.getElementById("full-stack-projects").style.display = "none";
+      document.getElementById("machine-learning-projects").style.display = "none";
+    }
+  
+    function showPythonProjects() {
+      document.getElementById("projects").style.display = "none";
+      document.getElementById("python-projects").style.display = "block";
+      document.getElementById("full-stack-projects").style.display = "none";
+      document.getElementById("machine-learning-projects").style.display = "none";
+    }
+  
+    function showFullStackProjects() {
+      document.getElementById("projects").style.display = "none";
+      document.getElementById("python-projects").style.display = "none";
+      document.getElementById("full-stack-projects").style.display = "block";
+      document.getElementById("machine-learning-projects").style.display = "none";
+    }
+  
+    function showMachineLearningProjects() {
+      document.getElementById("projects").style.display = "none";
+      document.getElementById("python-projects").style.display = "none";
+      document.getElementById("full-stack-projects").style.display = "none";
+  document.getElementById("machine-learning-projects").style.display = "block";
+}
+
+// Add event listeners to the buttons
+document.getElementById("about-me-button").addEventListener("click", showAboutMe);
+document.getElementById("skills-button").addEventListener("click", showSkills);
+document.getElementById("projects-button").addEventListener("click", showProjects);
+document.getElementById("python-projects-button").addEventListener("click", showPythonProjects);
+document.getElementById("full-stack-projects-button").addEventListener("click", showFullStackProjects);
+document.getElementById("machine-learning-projects-button").addEventListener("click", showMachineLearningProjects);
+</script>

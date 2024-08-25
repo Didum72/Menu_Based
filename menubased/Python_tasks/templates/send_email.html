@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .email-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input, 
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #285e8e;
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-form">
+    <h2>Send an Email</h2>
+    <div class="form-group">
+      <label for="to_email">Recipient's Email</label>
+      <input type="email" id="to_email" required>
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" required>
+    </div>
+    <div class="form-group">
+      <label for="body">Message</label>
+      <textarea id="body" required></textarea>
+    </div>
+    <div class="form-group">
+      <button id="sendEmailButton">Send Email</button>
+    </div>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    document.getElementById('sendEmailButton').addEventListener('click', function() {
+      const to_email = document.getElementById('to_email').value;
+      const subject = document.getElementById('subject').value;
+      const body = document.getElementById('body').value;
+
+      fetch('/send_email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to_email: to_email,
+          subject: subject,
+          body: body
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        const messageDiv = document.getElementById('message');
+        if (data.status === 'success') {
+          messageDiv.textContent = data.message;
+          messageDiv.className = 'message success';
+        } else {
+          messageDiv.textContent = data.message;
+          messageDiv.className = 'message error';
+        }
+      })
+      .catch((error) => {
+        const messageDiv = document.getElementById('message');
+        messageDiv.textContent = 'Failed to send email';
+        messageDiv.className = 'message error';
+      });
+    });
+  </script>
+</body>
+</html>
