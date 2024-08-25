@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Janvi Sharma's Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #337ab7;
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #337ab7;
+      padding: 10px 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .links a:hover {
+      background-color: #337ab7;
+      color: #f9f9f9;
+    }
+
+    .content {
+      display: none;
+      padding: 20px;
+      background-color: #f9f9f9;
+      /* border: 1px solid #337ab7; */
+      border-radius: 5px;
+    }
+
+    .projects {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .project-button {
+      padding: 10px 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #337ab7;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+
+    .project-button:hover {
+      background-color: #337ab7;
+      color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Add your profile image path below -->
+    <img src="file:/C:/Users/Anmol/OneDrive/Desktop/123/23.jpg" alt="Janvi Sharma" class="profile-image">
+    <div class="profile-name">Janvi Sharma</div>
+    <div class="links">
+      <a href="#" id="about-me-button">About Me</a>
+      <a href="#" id="skills-button">Skills</a>
+      <a href="#" id="projects-button">Projects</a>
+    </div>
+    <div id="about-me" class="content">
+      <h1>About Me</h1>
+      <p>Enthusiastic and motivated Java programming student eager to gain hands-on experience as a Java Intern. Possessing a solid foundation in core Java concepts and object-oriented programming, along with a strong desire to learn and contribute to real-world projects. Seeking an opportunity to apply and expand my skills in a professional environment.</p>
+    </div>
+    <div id="skills" class="content">
+      <h1>Skills</h1>
+      <ul>
+        <li>Programming languages: C, C++, Java</li>
+        <li>Key Points: Strong foundation in java fundamentals, Understanding of java development tools like, Eclipse, intelliJ IDEA</li>
+        <li>Tools: Manev, Gradle</li>
+        <li>Database: MySQL, PL-SQL, SQLite</li>
+        <li>Cloud Computing: AWS and Microsoft AZURE</li>
+        <li>Soft Skills: Communication, Time management, Multitasker, Leadership and Decision-making, Good observation and planning skills, Creative and Critical Thinking</li>
+      </ul>
+    </div>
+    <div id="projects" class="content">
+      <h1>Projects</h1>
+      <div class="projects">
+        <a href="python-projects.html" class="project-button">Python</a>
+        <a href="full_stack_projects.html" class="project-button">Full Stack</a>
+        <a href="machine_learning_projects.html" class="project-button">Machine Learning</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showContent(id) {
+      const sections = document.querySelectorAll('.content');
+      sections.forEach(section => section.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    document.getElementById('about-me-button').addEventListener('click', () => showContent('about-me'));
+    document.getElementById('skills-button').addEventListener('click', () => showContent('skills'));
+    document.getElementById('projects-button').addEventListener('click', () => showContent('projects'));
+  </script>
+</body>
+</html>
